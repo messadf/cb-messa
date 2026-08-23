@@ -1,6 +1,6 @@
 const bookingForm = document.querySelector("#booking-form");
 
-bookingForm.addEventListener("submit", (e) => {
+bookingForm.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const data = new FormData(bookingForm);
@@ -22,7 +22,21 @@ bookingForm.addEventListener("submit", (e) => {
     return;
   } else {
     errorElement.textContent = "";
-
-    console.log(formattedData);
   }
+
+  const response = await fetch("https://jsonplaceholder.typicode.com/posts", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(formattedData),
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP Error: ${response.status}`);
+  }
+
+  const result = await response.json();
+
+  console.log(result);
 });
