@@ -34,3 +34,14 @@ loadUsersBtn.addEventListener("click", () => {
   currentStatus.textContent = "Loading...";
   loadUsersData();
 });
+
+const showDetails = document.querySelector("#show-details");
+const detailsDiv = document.querySelector("#details");
+
+const seeHideDetail = () => {
+  detailsDiv.classList.contains("hidden")
+    ? (showDetails.textContent = "Hide details")
+    : (showDetails.textContent = "Show details");
+};
+
+showDetails.addEventListener("click", () => seeHideDetail());
