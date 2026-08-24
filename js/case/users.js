@@ -42,6 +42,7 @@ const seeHideDetail = () => {
   detailsDiv.classList.contains("hidden")
     ? (showDetails.textContent = "Hide details")
     : (showDetails.textContent = "Show details");
+  detailsDiv.classList.toggle("hidden");
 };
 
 showDetails.addEventListener("click", () => seeHideDetail());
