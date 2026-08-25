@@ -3,7 +3,7 @@ const currentStatus = document.querySelector("#status");
 const usersList = document.querySelector("#users");
 
 let users = [];
-const searchBtn = document.querySelector("#search");
+const searchInput = document.querySelector("#search");
 
 const renderUsers = (data) => {
   usersList.replaceChildren();
@@ -55,22 +55,20 @@ const seeHideDetail = () => {
 
 showDetails.addEventListener("click", seeHideDetail);
 
-const filterSearch = (users) => {
-  const filterUsers = users.filter((u) => u.name.toLowerCase().includes(""));
+const filterSearch = () => {
+  const query = searchInput.value;
+
+  const filterUsers = users.filter((u) =>
+    u.name.toLowerCase().includes(query.toLowerCase()),
+  );
+
   return filterUsers;
 };
 
-searchBtn.addEventListener("click", () => {
+searchInput.addEventListener("input", () => {
   const filteredData = filterSearch();
 
   usersList.replaceChildren();
 
-  filteredData.forEach((u) => {
-    const userElement = usersList.createElement("p");
-
-    userElement.textContent = `${u.name} - ${u.email}`;
-    userElement.style.fontWeight = "bold";
-
-    usersList.append(userElement);
-  });
+  renderUsers(filteredData);
 });
