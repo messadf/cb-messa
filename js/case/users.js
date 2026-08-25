@@ -12,18 +12,9 @@ const loadUsersData = async () => {
 
     const data = await response.json();
 
+    users = data;
+
     currentStatus.textContent = "";
-
-    usersList.replaceChildren();
-
-    data.forEach((user) => {
-      const userElement = document.createElement("p");
-
-      userElement.textContent = `${user.name} - ${user.email}`;
-      userElement.style.fontWeight = "bold";
-
-      usersList.append(userElement);
-    });
   } catch (e) {
     currentStatus.textContent = "Произошла ошибка при запросе данных.";
     console.error(e);
@@ -45,4 +36,20 @@ const seeHideDetail = () => {
   detailsDiv.classList.toggle("hidden");
 };
 
-showDetails.addEventListener("click", () => seeHideDetail());
+showDetails.addEventListener("click", seeHideDetail);
+
+const searchBtn = document.querySelector("#search");
+let users = [];
+
+const renderUsers = (data) => {
+  usersList.replaceChildren();
+
+  data.forEach((user) => {
+    const userElement = document.createElement("p");
+
+    userElement.textContent = `${user.name} - ${user.email}`;
+    userElement.style.fontWeight = "bold";
+
+    usersList.append(userElement);
+  });
+};
