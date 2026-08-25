@@ -2,6 +2,22 @@ const loadUsersBtn = document.querySelector("#load-users");
 const currentStatus = document.querySelector("#status");
 const usersList = document.querySelector("#users");
 
+let users = [];
+const searchBtn = document.querySelector("#search");
+
+const renderUsers = (data) => {
+  usersList.replaceChildren();
+
+  data.forEach((user) => {
+    const userElement = document.createElement("p");
+
+    userElement.textContent = `${user.name} - ${user.email}`;
+    userElement.style.fontWeight = "bold";
+
+    usersList.append(userElement);
+  });
+};
+
 const loadUsersData = async () => {
   try {
     const response = await fetch("https://jsonplaceholder.typicode.com/users");
@@ -13,6 +29,7 @@ const loadUsersData = async () => {
     const data = await response.json();
 
     users = data;
+    renderUsers(users);
 
     currentStatus.textContent = "";
   } catch (e) {
@@ -38,18 +55,22 @@ const seeHideDetail = () => {
 
 showDetails.addEventListener("click", seeHideDetail);
 
-const searchBtn = document.querySelector("#search");
-let users = [];
+const filterSearch = (users) => {
+  const filterUsers = users.filter((u) => u.name.toLowerCase().includes(""));
+  return filterUsers;
+};
 
-const renderUsers = (data) => {
+searchBtn.addEventListener("click", () => {
+  const filteredData = filterSearch();
+
   usersList.replaceChildren();
 
-  data.forEach((user) => {
-    const userElement = document.createElement("p");
+  filteredData.forEach((u) => {
+    const userElement = usersList.createElement("p");
 
-    userElement.textContent = `${user.name} - ${user.email}`;
+    userElement.textContent = `${u.name} - ${u.email}`;
     userElement.style.fontWeight = "bold";
 
     usersList.append(userElement);
   });
-};
+});
