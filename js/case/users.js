@@ -10,11 +10,20 @@ const renderUsers = (data) => {
 
   data.forEach((user) => {
     const userElement = document.createElement("p");
+    const userDeleteBtn = document.createElement("button");
+
+    userDeleteBtn.textContent = "Delete";
+    userDeleteBtn.style.background = "#ff474c";
+    userDeleteBtn.style.padding = "7px";
+    userDeleteBtn.style.border = "none";
+    userDeleteBtn.style.borderRadius = "5px";
+    userDeleteBtn.style.color = "white";
+    userDeleteBtn.style.cursor = "pointer";
 
     userElement.textContent = `${user.name} - ${user.email}`;
     userElement.style.fontWeight = "bold";
 
-    usersList.append(userElement);
+    usersList.append(userElement, userDeleteBtn);
   });
 };
 
