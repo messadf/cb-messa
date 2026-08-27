@@ -92,6 +92,6 @@ usersList.addEventListener("click", (e) => {
   }
 
   const userId = Number(target.dataset.id);
-  deletedUserArray = users.filter((u) => u.id !== userId);
-  renderUsers(deletedUserArray);
+  users = users.filter((u) => u.id !== userId);
+  renderUsers(users);
 });
