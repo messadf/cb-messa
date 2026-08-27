@@ -19,6 +19,7 @@ const renderUsers = (data) => {
     userDeleteBtn.style.borderRadius = "5px";
     userDeleteBtn.style.color = "white";
     userDeleteBtn.style.cursor = "pointer";
+    userDeleteBtn.dataset.id = user.id;
 
     userElement.textContent = `${user.name} - ${user.email}`;
     userElement.style.fontWeight = "bold";
@@ -80,4 +81,17 @@ searchInput.addEventListener("input", () => {
   usersList.replaceChildren();
 
   renderUsers(filteredData);
+});
+
+const deleteUser = (e) => {
+  // return users.filter((u) => e.target.dataset.id !== u.id);
+  return e.target.dataset.id;
+};
+
+usersList.addEventListener("click", (e) => {
+  const target = e.target;
+
+  if (target === userDeleteBtn) {
+    return users.filter((u) => Number(e.target.dataset.id) !== u.id);
+  }
 });
